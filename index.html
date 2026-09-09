@@ -2,14 +2,14 @@
 <html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SAAD FAQI - Luxury Currency Exchange</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-grad: linear-gradient(135deg, #07090e 0%, #0f172a 50%, #07090e 100%);
+            --bg-grad: linear-gradient(135deg, #070b14 0%, #0f172a 50%, #020617 100%);
             --card-bg: rgba(30, 41, 59, 0.45);
             --card-border: rgba(255, 255, 255, 0.08);
             --neon-blue: #38bdf8;
@@ -24,7 +24,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Noto Kufi Arabic', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -34,168 +34,98 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 15px;
+            justify-content: space-between;
+            padding: 20px 16px;
+            position: relative;
             overflow-x: hidden;
         }
 
+        body::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
         .container {
+            max-width: 460px;
+            margin: 0 auto;
             width: 100%;
-            max-width: 480px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            padding-bottom: 40px;
+            position: relative;
+            z-index: 1;
         }
 
         header {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
         }
 
-        .brand-info h1 {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, var(--neon-blue) 100%);
+        .brand h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .brand-info p {
-            font-size: 11px;
+        .brand p {
+            font-size: 0.68rem;
             color: var(--text-muted);
             margin-top: 2px;
         }
 
-        .admin-btn {
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--neon-blue);
-            width: 40px;
-            height: 40px;
+        .admin-badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-main);
+            padding: 7px 14px;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-        }
-
-        .admin-btn:active {
-            transform: scale(0.92);
-        }
-
-        .rates-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .rate-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .rate-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 4px; height: 100%;
-        }
-
-        .rate-card.buy::before { background: var(--neon-green); }
-        .rate-card.sell::before { background: var(--neon-rose); }
-
-        .rate-details {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .rate-title {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .rate-amount {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .rate-card.buy .rate-amount { color: var(--neon-green); }
-        .rate-card.sell .rate-amount { color: var(--neon-rose); }
-
-        .rate-icon-box {
-            width: 45px;
-            height: 45px;
-            border-radius: 14px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 18px;
+            gap: 5px;
         }
 
-        .rate-card.buy .rate-icon-box {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--neon-green);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .rate-card.sell .rate-icon-box {
-            background: rgba(244, 63, 94, 0.1);
-            color: var(--neon-rose);
-            border: 1px solid rgba(244, 63, 94, 0.2);
+        .admin-badge:hover {
+            background: var(--neon-blue);
+            color: #000;
         }
 
         .calc-card {
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
+            border-radius: 26px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+            margin-bottom: 18px;
         }
 
-        .calc-title {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--neon-blue);
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
+        .amount-input-box label {
             display: block;
-            font-size: 11px;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-bottom: 6px;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .input-wrapper {
@@ -206,273 +136,485 @@
 
         .input-wrapper input {
             width: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1.5px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 18px 14px 45px;
+            font-size: 1.4rem;
+            font-weight: 800;
             color: #fff;
-            font-size: 16px;
-            font-weight: 600;
             outline: none;
             transition: all 0.3s ease;
         }
 
         .input-wrapper input:focus {
             border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
-        .currency-tag {
+        .currency-symbol {
             position: absolute;
-            left: 14px;
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 8px;
-            border-radius: 6px;
+            left: 18px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--neon-blue);
         }
 
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(7, 9, 14, 0.8);
-            backdrop-filter: blur(8px);
-            display: none;
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 5px;
+            border-radius: 16px;
+            margin-top: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn {
+            padding: 11px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            padding: 20px;
+            gap: 6px;
         }
 
-        .modal-content {
-            background: #0f172a;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 24px;
-            padding: 24px;
-            width: 100%;
-            max-width: 380px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        .tab-btn.active.buy-tab {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .tab-btn.active.sell-tab {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .rates-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
 
-        .modal-content h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--neon-blue);
-            text-align: center;
-        }
-
-        .modal-content input {
-            background: rgba(30, 41, 59, 0.6);
+        .rate-item {
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            color: #fff;
-            font-size: 15px;
-            text-align: center;
-            outline: none;
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(14px);
         }
 
-        .modal-content input:focus {
-            border-color: var(--neon-blue);
+        .bank-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bank-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .fib-bg { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .fp-bg { background: rgba(236, 72, 153, 0.15); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .zc-bg { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .bank-name h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .bank-name span {
+            font-size: 0.68rem;
+            color: var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-top: 2px;
+        }
+
+        .rate-results {
+            text-align: left;
+        }
+
+        .total-converted {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .unit-rate {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* Luxury Footer */
+        footer {
+            margin-top: 24px;
+            text-align: center;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .dev-title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .dev-name {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(90deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dev-region {
+            font-size: 0.72rem;
+            color: var(--neon-purple);
+            font-weight: 700;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .dev-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            padding: 5px 12px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 700;
+            direction: ltr;
+            transition: all 0.3s ease;
+        }
+
+        .dev-phone:hover {
+            background: var(--neon-blue);
+            color: #000;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-body {
+            background: #0f172a;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 22px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-body h2 {
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            text-align: center;
+            color: var(--neon-blue);
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: rgba(30, 41, 59, 0.7);
+            color: white;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            outline: none;
         }
 
         .modal-btns {
             display: flex;
             gap: 10px;
+            margin-top: 14px;
         }
 
         .modal-btns button {
             flex: 1;
-            padding: 12px;
+            padding: 11px;
             border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
             border: none;
-            transition: all 0.2s ease;
-        }
-
-        .btn-save { background: var(--neon-blue); color: #0f172a; }
-        .btn-close { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
-
-        footer {
-            margin-top: auto;
-            text-align: center;
-            padding: 15px;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--card-border);
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        footer .creator {
             font-weight: 700;
-            color: var(--neon-blue);
-            font-size: 15px;
+            cursor: pointer;
         }
 
-        footer .phone {
-            color: var(--text-main);
-            font-weight: 600;
-            direction: ltr;
-        }
+        .btn-confirm { background: var(--neon-blue); color: #000; }
+        .btn-close { background: rgba(255,255,255,0.1); color: white; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <div class="brand-info">
-                <h1>SAAD FAQI</h1>
-                <p>نرخی دراوەکان بە LIVE</p>
+            <div class="brand">
+                <h1><i class="fa-solid fa-chart-pie"></i> SAAD FAQI</h1>
+                <p>نرخی ڕاستەوخۆ / Live Rates</p>
             </div>
-            <div class="admin-btn" onclick="openAdminModal()">
-                <i class="fa-solid fa-lock"></i>
-            </div>
+            <button class="admin-badge" onclick="openAuth()"><i class="fa-solid fa-gear"></i> Admin</button>
         </header>
 
-        <div class="rates-container">
-            <div class="rate-card buy">
-                <div class="rate-details">
-                    <span class="rate-title">نرخی کڕین (USD)</span>
-                    <span class="rate-amount" id="displayBuy">150,250</span>
-                </div>
-                <div class="rate-icon-box">
-                    <i class="fa-solid fa-arrow-down"></i>
-                </div>
-            </div>
-
-            <div class="rate-card sell">
-                <div class="rate-details">
-                    <span class="rate-title">نرخی فرۆشتن (USD)</span>
-                    <span class="rate-amount" id="displaySell">150,350</span>
-                </div>
-                <div class="rate-icon-box">
-                    <i class="fa-solid fa-arrow-up"></i>
-                </div>
-            </div>
-        </div>
-
         <div class="calc-card">
-            <div class="calc-title">
-                <i class="fa-solid fa-calculator"></i> حاسیبەی خێرا
-            </div>
-            <div class="input-group">
-                <label>بڕی دۆلار (USD)</label>
+            <div class="amount-input-box">
+                <label>بڕی دۆلار / Dollar Amount ($)</label>
                 <div class="input-wrapper">
-                    <input type="number" id="usdInput" placeholder="بڕ بە دۆلار بنووسە..." oninput="calculate()">
-                    <span class="currency-tag">$</span>
+                    <input type="number" id="usdAmount" value="100" oninput="calculateRates()">
+                    <span class="currency-symbol">$</span>
                 </div>
             </div>
-            <div class="input-group">
-                <label>کۆی گشتی بە دینار (IQD)</label>
-                <div class="input-wrapper">
-                    <input type="text" id="iqdOutput" placeholder="0" readonly style="color: var(--neon-green);">
-                    <span class="currency-tag">دینار</span>
+
+            <div class="tabs">
+                <button class="tab-btn active buy-tab" id="buyBtn" onclick="setMode('buy')">
+                    <i class="fa-solid fa-arrow-down"></i> کڕین / Buy
+                </button>
+                <button class="tab-btn sell-tab" id="sellBtn" onclick="setMode('sell')">
+                    <i class="fa-solid fa-arrow-up"></i> فرۆشتن / Sell
+                </button>
+            </div>
+        </div>
+
+        <div class="rates-list">
+            <!-- FIB -->
+            <div class="rate-item">
+                <div class="bank-info">
+                    <div class="bank-logo fib-bg">FIB</div>
+                    <div class="bank-name">
+                        <h3>First Iraqi Bank</h3>
+                        <span>پەیوەستکراوە</span>
+                    </div>
+                </div>
+                <div class="rate-results">
+                    <div class="total-converted" id="fib-total">0 IQD</div>
+                    <div class="unit-rate">1$ = <span id="fib-unit">0</span> IQD</div>
+                </div>
+            </div>
+
+            <!-- FastPay -->
+            <div class="rate-item">
+                <div class="bank-info">
+                    <div class="bank-logo fp-bg">FP</div>
+                    <div class="bank-name">
+                        <h3>FastPay</h3>
+                        <span>پەیوەستکراوە</span>
+                    </div>
+                </div>
+                <div class="rate-results">
+                    <div class="total-converted" id="fp-total">0 IQD</div>
+                    <div class="unit-rate">1$ = <span id="fp-unit">0</span> IQD</div>
+                </div>
+            </div>
+
+            <!-- ZainCash -->
+            <div class="rate-item">
+                <div class="bank-info">
+                    <div class="bank-logo zc-bg">ZC</div>
+                    <div class="bank-name">
+                        <h3>ZainCash</h3>
+                        <span>پەیوەستکراوە</span>
+                    </div>
+                </div>
+                <div class="rate-results">
+                    <div class="total-converted" id="zc-total">0 IQD</div>
+                    <div class="unit-rate">1$ = <span id="zc-unit">0</span> IQD</div>
                 </div>
             </div>
         </div>
+
+        <!-- Luxury Footer -->
+        <footer>
+            <div class="dev-title">دروستکراوە لەلایەن / Developed by</div>
+            <div class="dev-name">saad shkur faqi</div>
+            <div class="dev-region">Kurdistan</div>
+            <a href="tel:07503931747" class="dev-phone">
+                <i class="fa-solid fa-phone"></i> +964 750 393 1747
+            </a>
+        </footer>
     </div>
 
-    <div class="modal" id="adminModal">
-        <div class="modal-content">
-            <h3>چوونەژوورەوەی ئادمین</h3>
-            <input type="password" id="passcodeInput" placeholder="پاسۆرد بنووسە">
+    <!-- Auth Modal (پاک و بەبێ نیشاندانی پاسۆرد لە خانەکەدا) -->
+    <div class="modal" id="authModal">
+        <div class="modal-body">
+            <h2>چوونەژوورەوە / Admin Login</h2>
+            <input type="password" id="passInput" placeholder="">
             <div class="modal-btns">
-                <button class="btn-close" onclick="closeAdminModal()">داخستن</button>
-                <button class="btn-save" onclick="checkPasscode()">چوونەژوورەوە</button>
+                <button class="btn-confirm" onclick="checkAuth()">چوونەژوورەوە</button>
+                <button class="btn-close" onclick="closeAuth()">داخستن</button>
             </div>
         </div>
     </div>
 
+    <!-- Edit Modal -->
     <div class="modal" id="editModal">
-        <div class="modal-content">
-            <h3>گۆڕینی نرخەکان</h3>
-            <div class="input-group" style="margin-bottom:0;">
-                <label>نرخی نوێی کڕین</label>
-                <input type="number" id="newBuyInput">
-            </div>
-            <div class="input-group" style="margin-bottom:0;">
-                <label>نرخی نوێی فرۆشتن</label>
-                <input type="number" id="newSellInput">
-            </div>
+        <div class="modal-body">
+            <h2>دەستکاریکردنی نرخەکان / Edit Rates</h2>
+            <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom:10px; text-align:center;">(نرخی 100 دۆلار بنووسە - وەک 153000)</p>
+            
+            <label style="font-size:0.7rem; color:var(--neon-green); font-weight:700;">FIB Buy / کڕین</label>
+            <input type="number" id="in-fib-buy">
+            <label style="font-size:0.7rem; color:var(--neon-rose); font-weight:700;">FIB Sell / فرۆشتن</label>
+            <input type="number" id="in-fib-sell">
+
+            <label style="font-size:0.7rem; color:var(--neon-green); font-weight:700;">FastPay Buy / کڕین</label>
+            <input type="number" id="in-fp-buy">
+            <label style="font-size:0.7rem; color:var(--neon-rose); font-weight:700;">FastPay Sell / فرۆشتن</label>
+            <input type="number" id="in-fp-sell">
+
+            <label style="font-size:0.7rem; color:var(--neon-green); font-weight:700;">ZainCash Buy / کڕین</label>
+            <input type="number" id="in-zc-buy">
+            <label style="font-size:0.7rem; color:var(--neon-rose); font-weight:700;">ZainCash Sell / فرۆشتن</label>
+            <input type="number" id="in-zc-sell">
+
             <div class="modal-btns">
-                <button class="btn-close" onclick="closeEditModal()">پاشگەزبوونەوە</button>
-                <button class="btn-save" onclick="saveNewRates()">پاشەکەوتکردن</button>
+                <button class="btn-confirm" onclick="saveData()">پاشەکەوتکردن</button>
+                <button class="btn-close" onclick="closeEdit()">داخستن</button>
             </div>
         </div>
     </div>
 
-    <footer>
-        <div>دیزاین کراوە لەلایەن</div>
-        <div class="creator">سەعد فایەق (SAAD FAQI)</div>
-        <div class="phone"><i class="fa-solid fa-phone"></i> 0750 123 4567</div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">کوردستان - هەولێر</div>
-    </footer>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    <script>
-        let buyRate = localStorage.getItem('saad_buy') || 150250;
-        let sellRate = localStorage.getItem('saad_sell') || 150350;
+        const firebaseConfig = {
+            databaseURL: "https://saad-rates-default-rtdb.firebaseio.com"
+        };
 
-        document.getElementById('displayBuy').innerText = Number(buyRate).toLocaleString();
-        document.getElementById('displaySell').innerText = Number(sellRate).toLocaleString();
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const ratesRef = ref(db, 'rates');
 
-        function openAdminModal() {
-            document.getElementById('adminModal').style.display = 'flex';
-            document.getElementById('passcodeInput').value = '';
-        }
+        let currentMode = 'buy';
+        let dbData = {
+            fib_buy: 153000, fib_sell: 153500,
+            fp_buy: 153000, fp_sell: 153500,
+            zc_buy: 153000, zc_sell: 153500
+        };
 
-        function closeAdminModal() {
-            document.getElementById('adminModal').style.display = 'none';
-        }
+        onValue(ratesRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                dbData = data;
+                calculateRates();
+            }
+        });
 
-        function checkPasscode() {
-            const pass = document.getElementById('passcodeInput').value;
-            if(pass === '0309') {
-                closeAdminModal();
-                document.getElementById('newBuyInput').value = buyRate;
-                document.getElementById('newSellInput').value = sellRate;
-                document.getElementById('editModal').style.display = 'flex';
+        window.setMode = (mode) => {
+            currentMode = mode;
+            document.getElementById('buyBtn').classList.toggle('active', mode === 'buy');
+            document.getElementById('sellBtn').classList.toggle('active', mode === 'sell');
+            calculateRates();
+        };
+
+        window.calculateRates = () => {
+            const usd = parseFloat(document.getElementById('usdAmount').value) || 0;
+            
+            const fib100 = parseFloat(currentMode === 'buy' ? dbData.fib_buy : dbData.fib_sell) || 0;
+            const fp100 = parseFloat(currentMode === 'buy' ? dbData.fp_buy : dbData.fp_sell) || 0;
+            const zc100 = parseFloat(currentMode === 'buy' ? dbData.zc_buy : dbData.zc_sell) || 0;
+
+            const fibTotal = Math.round(usd * (fib100 / 100));
+            const fpTotal = Math.round(usd * (fp100 / 100));
+            const zcTotal = Math.round(usd * (zc100 / 100));
+
+            document.getElementById('fib-total').innerText = fibTotal.toLocaleString() + ' IQD';
+            document.getElementById('fib-unit').innerText = (fib100 / 100).toLocaleString();
+
+            document.getElementById('fp-total').innerText = fpTotal.toLocaleString() + ' IQD';
+            document.getElementById('fp-unit').innerText = (fp100 / 100).toLocaleString();
+
+            document.getElementById('zc-total').innerText = zcTotal.toLocaleString() + ' IQD';
+            document.getElementById('zc-unit').innerText = (zc100 / 100).toLocaleString();
+        };
+
+        window.openAuth = () => document.getElementById('authModal').style.display = 'flex';
+        window.closeAuth = () => document.getElementById('authModal').style.display = 'none';
+
+        window.checkAuth = () => {
+            if (document.getElementById('passInput').value === '0309') {
+                closeAuth();
+                document.getElementById('passInput').value = '';
+                openEdit();
             } else {
-                alert('پاسۆردی هەڵەیە!');
+                alert('وشەی نهێنی هەڵەیە!');
             }
-        }
+        };
 
-        function closeEditModal() {
-            document.getElementById('editModal').style.display = 'none';
-        }
+        window.openEdit = () => {
+            document.getElementById('in-fib-buy').value = dbData.fib_buy || 153000;
+            document.getElementById('in-fib-sell').value = dbData.fib_sell || 153500;
+            document.getElementById('in-fp-buy').value = dbData.fp_buy || 153000;
+            document.getElementById('in-fp-sell').value = dbData.fp_sell || 153500;
+            document.getElementById('in-zc-buy').value = dbData.zc_buy || 153000;
+            document.getElementById('in-zc-sell').value = dbData.zc_sell || 153500;
+            document.getElementById('editModal').style.display = 'flex';
+        };
 
-        function saveNewRates() {
-            const b = document.getElementById('newBuyInput').value;
-            const s = document.getElementById('newSellInput').value;
-            if(b && s) {
-                buyRate = b;
-                sellRate = s;
-                localStorage.setItem('saad_buy', b);
-                localStorage.setItem('saad_sell', s);
-                document.getElementById('displayBuy').innerText = Number(b).toLocaleString();
-                document.getElementById('displaySell').innerText = Number(s).toLocaleString();
-                closeEditModal();
-                calculate();
-            }
-        }
+        window.closeEdit = () => document.getElementById('editModal').style.display = 'none';
 
-        function calculate() {
-            const usd = document.getElementById('usdInput').value;
-            if(usd === '' || isNaN(usd)) {
-                document.getElementById('iqdOutput').value = '';
-                return;
-            }
-            const total = usd * (Number(buyRate) / 100);
-            document.getElementById('iqdOutput').value = Math.round(total).toLocaleString();
-        }
+        window.saveData = () => {
+            set(ratesRef, {
+                fib_buy: document.getElementById('in-fib-buy').value,
+                fib_sell: document.getElementById('in-fib-sell').value,
+                fp_buy: document.getElementById('in-fp-buy').value,
+                fp_sell: document.getElementById('in-fp-sell').value,
+                zc_buy: document.getElementById('in-zc-buy').value,
+                zc_sell: document.getElementById('in-zc-sell').value
+            }).then(() => {
+                closeEdit();
+            }).catch((err) => {
+                alert("کێشەیەک ڕوویدا: " + err.message);
+            });
+        };
     </script>
 </body>
 </html>

@@ -3,226 +3,639 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Saad Faqi - Currency Exchange</title>
+    <title>SAAD FAQI - Luxury Currency Exchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- PWA & Mobile Settings -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0b132b">
-
     <style>
         :root {
-            --bg-color: #0b132b;
-            --card-bg: #1c2541;
-            --accent-blue: #3a86ff;
-            --text-white: #ffffff;
-            --text-dim: #8d99ae;
-            --green: #06d6a0;
-            --border-color: #2a385b;
+            --bg-grad: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #050811 100%);
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --neon-blue: #38bdf8;
+            --neon-purple: #818cf8;
+            --neon-green: #10b981;
+            --neon-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; user-select: none; }
-        body { background-color: var(--bg-color); color: var(--text-white); padding: 20px; padding-top: max(20px, env(safe-area-inset-top)); }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .logo-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo-img { width: 42px; height: 42px; border-radius: 50%; background: var(--accent-blue); display: flex; align-items: center; justify-content: center; font-weight: bold; overflow: hidden; }
-        .logo-img img { width: 100%; height: 100%; object-fit: cover; }
-        .title-box h1 { font-size: 1.1rem; letter-spacing: 1px; }
-        .title-box p { font-size: 0.75rem; color: var(--text-dim); }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Noto Kufi Arabic', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        .admin-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-white); padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
+        body {
+            background: var(--bg-grad);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-        .card { background: var(--card-bg); border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid var(--border-color); }
-        .input-label { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 10px; display: block; }
-        
-        .amount-input-wrap { position: relative; display: flex; align-items: center; }
-        .currency-symbol { position: absolute; right: 15px; font-size: 1.5rem; color: var(--accent-blue); font-weight: bold; }
-        .amount-input { width: 100%; background: #0f172a; border: 1px solid var(--border-color); color: #fff; font-size: 1.8rem; padding: 12px 45px 12px 15px; border-radius: 12px; text-align: left; direction: ltr; font-weight: bold; }
-        
-        .mode-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .mode-btn { padding: 12px; border: none; border-radius: 10px; background: #0f172a; color: var(--text-dim); font-weight: bold; cursor: pointer; }
-        .mode-btn.active { background: var(--accent-blue); color: #fff; }
+        /* Ambient Glow Effects */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
 
-        .rate-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
-        .rate-row:last-child { border-bottom: none; }
-        .provider-info { display: flex; align-items: center; gap: 10px; }
-        .provider-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(58, 134, 255, 0.15); color: var(--accent-blue); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
-        .rate-val { color: var(--green); font-weight: bold; }
-        .total-val { font-size: 1.1rem; font-weight: bold; text-align: left; direction: ltr; }
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: 50px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
 
-        /* Modal for Admin */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; z-index: 100; }
-        .modal-content { background: var(--card-bg); width: 100%; max-width: 350px; border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); }
-        .modal h2 { font-size: 1.1rem; margin-bottom: 15px; }
-        .modal input { width: 100%; padding: 10px; margin-bottom: 10px; background: #0f172a; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; }
-        .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
-        .modal-actions button { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-save { background: var(--accent-blue); color: #fff; }
-        .btn-cancel { background: #334155; color: #fff; }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+        }
+
+        .brand h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .admin-badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .admin-badge:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .calc-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 22px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .amount-input-box label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1.5px solid var(--card-border);
+            border-radius: 18px;
+            padding: 16px 20px 16px 50px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 20px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--neon-blue);
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 6px;
+            border-radius: 18px;
+            margin-top: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 14px;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active.buy-tab {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+        }
+
+        .tab-btn.active.sell-tab {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .rates-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .rate-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(16px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .rate-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bank-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .bank-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .fib-bg { background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.4)); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .fp-bg { background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(219, 39, 119, 0.4)); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .zc-bg { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.4)); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .bank-name h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .bank-name span {
+            font-size: 0.7rem;
+            color: var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .rate-results {
+            text-align: left;
+        }
+
+        .total-converted {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .unit-rate {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-body {
+            background: #0f172a;
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 26px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-body h2 {
+            font-size: 1.15rem;
+            margin-bottom: 16px;
+            text-align: center;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            background: rgba(30, 41, 59, 0.7);
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 700;
+            outline: none;
+        }
+
+        .modal-body input:focus {
+            border-color: var(--neon-blue);
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .modal-btns button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-confirm { background: var(--neon-blue); color: #000; }
+        .btn-close { background: rgba(255,255,255,0.1); color: white; }
+
+        /* Luxury Footer */
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .dev-title {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .dev-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dev-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding: 6px 14px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            direction: ltr;
+            transition: all 0.3s ease;
+        }
+
+        .dev-phone:hover {
+            background: var(--neon-blue);
+            color: #000;
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo-box" onclick="document.getElementById('logoInput').click()">
-            <div class="logo-img" id="logoContainer">SF</div>
-            <div class="title-box">
-                <h1 id="appName">SAAD FAQI</h1>
-                <p>نرخی ڕاستەوخۆی دراوەکان</p>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <h1><i class="fa-solid fa-chart-line"></i> SAAD FAQI</h1>
+                <p>نرخی ڕاستەوخۆی دراوەکان / Live Rates</p>
             </div>
-            <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="uploadLogo(event)">
-        </div>
-        <button class="admin-btn" onclick="openAdmin()">دەستکاری (Admin)</button>
-    </div>
+            <button class="admin-badge" onclick="openAuth()"><i class="fa-solid fa-user-gear"></i> Admin</button>
+        </header>
 
-    <div class="card">
-        <label class="input-label">بڕی دۆلار ($):</label>
-        <div class="amount-input-wrap">
-            <span class="currency-symbol">$</span>
-            <input type="number" id="usdAmount" class="amount-input" value="100" oninput="calculate()">
-        </div>
-    </div>
-
-    <div class="mode-toggle">
-        <button id="buyBtn" class="mode-btn active" onclick="setMode('buy')">کڕینی دۆلار</button>
-        <button id="sellBtn" class="mode-btn" onclick="setMode('sell')">فۆشتنی دۆلار</button>
-    </div>
-
-    <div class="card">
-        <div id="ratesList"></div>
-    </div>
-
-    <!-- Modal Admin Password & Edit -->
-    <div class="modal" id="adminModal">
-        <div class="modal-content">
-            <h2>چوونەژوورەوەی بەڕێوەبەر</h2>
-            <div id="authSection">
-                <input type="password" id="adminPass" placeholder="وشەی نهێنی بنووسە...">
-                <div class="modal-actions">
-                    <button class="btn-save" onclick="verifyAdmin()">چوونەژوورەوە</button>
-                    <button class="btn-cancel" onclick="closeAdmin()">داخستن</button>
+        <div class="calc-card">
+            <div class="amount-input-box">
+                <label><i class="fa-solid fa-dollar-sign"></i> بڕی دۆلار / Dollar Amount ($)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="usdAmount" value="100" oninput="calculateRates()">
+                    <span class="currency-symbol">$</span>
                 </div>
             </div>
-            <div id="editSection" style="display:none;">
-                <label style="font-size:0.8rem; color:var(--text-dim);">نرخی FIB:</label>
-                <input type="number" id="editFib">
-                <label style="font-size:0.8rem; color:var(--text-dim);">نرخی FastPay:</label>
-                <input type="number" id="editFastPay">
-                <label style="font-size:0.8rem; color:var(--text-dim);">نرخی ZainCash:</label>
-                <input type="number" id="editZain">
-                <div class="modal-actions">
-                    <button class="btn-save" onclick="saveFirebaseData()">پاشەکەوتکردن بۆ هەمووان</button>
-                    <button class="btn-cancel" onclick="closeAdmin()">داخستن</button>
+
+            <div class="tabs">
+                <button class="tab-btn active buy-tab" id="buyBtn" onclick="setMode('buy')">
+                    <i class="fa-solid fa-arrow-down-left"></i> کڕین / Buy
+                </button>
+                <button class="tab-btn sell-tab" id="sellBtn" onclick="setMode('sell')">
+                    <i class="fa-solid fa-arrow-up-right"></i> فرۆشتن / Sell
+                </button>
+            </div>
+        </div>
+
+        <div class="rates-list">
+            <!-- FIB -->
+            <div class="rate-item">
+                <div class="bank-info">
+                    <div class="bank-logo fib-bg">FIB</div>
+                    <div class="bank-name">
+                        <h3>First Iraqi Bank</h3>
+                        <span><i class="fa-solid fa-circle" style="font-size:0.4rem;"></i> پەیوەستکراوە</span>
+                    </div>
                 </div>
+                <div class="rate-results">
+                    <div class="total-converted" id="fib-total">0 IQD</div>
+                    <div class="unit-rate">1$ = <span id="fib-unit">0</span> IQD</div>
+                </div>
+            </div>
+
+            <!-- FastPay -->
+            <div class="rate-item">
+                <div class="bank-info">
+                    <div class="bank-logo fp-bg">FP</div>
+                    <div class="bank-name">
+                        <h3>FastPay</h3>
+                        <span><i class="fa-solid fa-circle" style="font-size:0.4rem;"></i> پەیوەستکراوە</span>
+                    </div>
+                </div>
+                <div class="rate-results">
+                    <div class="total-converted" id="fp-total">0 IQD</div>
+                    <div class="unit-rate">1$ = <span id="fp-unit">0</span> IQD</div>
+                </div>
+            </div>
+
+            <!-- ZainCash -->
+            <div class="rate-item">
+                <div class="bank-info">
+                    <div class="bank-logo zc-bg">ZC</div>
+                    <div class="bank-name">
+                        <h3>ZainCash</h3>
+                        <span><i class="fa-solid fa-circle" style="font-size:0.4rem;"></i> پەیوەستکراوە</span>
+                    </div>
+                </div>
+                <div class="rate-results">
+                    <div class="total-converted" id="zc-total">0 IQD</div>
+                    <div class="unit-rate">1$ = <span id="zc-unit">0</span> IQD</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer / Developer Info -->
+        <footer>
+            <div class="dev-title">دروستکراوە لەلایەن / Developer</div>
+            <div class="dev-name">saad shkur faqi</div>
+            <a href="tel:07503931747" class="dev-phone">
+                <i class="fa-solid fa-phone"></i> +964 750 393 1747
+            </a>
+        </footer>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-body">
+            <h2>چوونەژوورەوە / Admin Login</h2>
+            <input type="password" id="passInput" placeholder="Passcode (0309)">
+            <div class="modal-btns">
+                <button class="btn-confirm" onclick="checkAuth()">چوونەژوورەوە</button>
+                <button class="btn-close" onclick="closeAuth()">داخستن</button>
             </div>
         </div>
     </div>
 
-    <!-- Firebase Realtime Database SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-body">
+            <h2>دەستکاریکردنی نرخەکان / Edit Rates</h2>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px; text-align:center;">(نرخی 100 دۆلار بنووسە - وەک 153000)</p>
+            
+            <label style="font-size:0.75rem; color:var(--neon-green); font-weight:700;">FIB Buy / کڕین</label>
+            <input type="number" id="in-fib-buy">
+            <label style="font-size:0.75rem; color:var(--neon-rose); font-weight:700;">FIB Sell / فرۆشتن</label>
+            <input type="number" id="in-fib-sell">
 
-    <script>
+            <label style="font-size:0.75rem; color:var(--neon-green); font-weight:700;">FastPay Buy / کڕین</label>
+            <input type="number" id="in-fp-buy">
+            <label style="font-size:0.75rem; color:var(--neon-rose); font-weight:700;">FastPay Sell / فرۆشتن</label>
+            <input type="number" id="in-fp-sell">
+
+            <label style="font-size:0.75rem; color:var(--neon-green); font-weight:700;">ZainCash Buy / کڕین</label>
+            <input type="number" id="in-zc-buy">
+            <label style="font-size:0.75rem; color:var(--neon-rose); font-weight:700;">ZainCash Sell / فرۆشتن</label>
+            <input type="number" id="in-zc-sell">
+
+            <div class="modal-btns">
+                <button class="btn-confirm" onclick="saveData()">پاشەکەوتکردن</button>
+                <button class="btn-close" onclick="closeEdit()">داخستن</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
         const firebaseConfig = {
             databaseURL: "https://saad-rates-default-rtdb.firebaseio.com"
         };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
 
-        let rates = { FIB: 1568, FastPay: 1584, ZainCash: 1580 };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const ratesRef = ref(db, 'rates');
+
         let currentMode = 'buy';
-        const PASSWORD = "0309";
+        let dbData = {
+            fib_buy: 153000, fib_sell: 153500,
+            fp_buy: 153000, fp_sell: 153500,
+            zc_buy: 153000, zc_sell: 153500
+        };
 
-        // Read Live Data
-        db.ref('rates').on('value', (snapshot) => {
+        onValue(ratesRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                rates = data;
-                calculate();
+                dbData = data;
+                calculateRates();
             }
         });
 
-        function calculate() {
-            const usd = parseFloat(document.getElementById('usdAmount').value) || 0;
-            const container = document.getElementById('ratesList');
-            container.innerHTML = '';
-
-            Object.keys(rates).forEach(provider => {
-                let rate = rates[provider];
-                if(currentMode === 'sell') rate -= 5;
-
-                const total = (usd * rate).toLocaleString();
-
-                container.innerHTML += `
-                    <div class="rate-row">
-                        <div class="provider-info">
-                            <div class="provider-icon">${provider.substring(0,2)}</div>
-                            <div>
-                                <div>${provider}</div>
-                                <div class="rate-val">${rate.toLocaleString()} IQD</div>
-                            </div>
-                        </div>
-                        <div class="total-val">${total} <span style="font-size:0.7rem; color:var(--text-dim)">IQD</span></div>
-                    </div>
-                `;
-            });
-        }
-
-        function setMode(mode) {
+        window.setMode = (mode) => {
             currentMode = mode;
             document.getElementById('buyBtn').classList.toggle('active', mode === 'buy');
             document.getElementById('sellBtn').classList.toggle('active', mode === 'sell');
-            calculate();
-        }
+            calculateRates();
+        };
 
-        function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+        window.calculateRates = () => {
+            const usd = parseFloat(document.getElementById('usdAmount').value) || 0;
+            
+            const fib100 = parseFloat(currentMode === 'buy' ? dbData.fib_buy : dbData.fib_sell) || 0;
+            const fp100 = parseFloat(currentMode === 'buy' ? dbData.fp_buy : dbData.fp_sell) || 0;
+            const zc100 = parseFloat(currentMode === 'buy' ? dbData.zc_buy : dbData.zc_sell) || 0;
 
-        function verifyAdmin() {
-            const pass = document.getElementById('adminPass').value;
-            if (pass === PASSWORD) {
-                document.getElementById('authSection').style.display = 'none';
-                document.getElementById('editSection').style.display = 'block';
-                document.getElementById('editFib').value = rates.FIB || 1568;
-                document.getElementById('editFastPay').value = rates.FastPay || 1584;
-                document.getElementById('editZain').value = rates.ZainCash || 1580;
+            const fibTotal = Math.round(usd * (fib100 / 100));
+            const fpTotal = Math.round(usd * (fp100 / 100));
+            const zcTotal = Math.round(usd * (zc100 / 100));
+
+            document.getElementById('fib-total').innerText = fibTotal.toLocaleString() + ' IQD';
+            document.getElementById('fib-unit').innerText = (fib100 / 100).toLocaleString();
+
+            document.getElementById('fp-total').innerText = fpTotal.toLocaleString() + ' IQD';
+            document.getElementById('fp-unit').innerText = (fp100 / 100).toLocaleString();
+
+            document.getElementById('zc-total').innerText = zcTotal.toLocaleString() + ' IQD';
+            document.getElementById('zc-unit').innerText = (zc100 / 100).toLocaleString();
+        };
+
+        window.openAuth = () => document.getElementById('authModal').style.display = 'flex';
+        window.closeAuth = () => document.getElementById('authModal').style.display = 'none';
+
+        window.checkAuth = () => {
+            if (document.getElementById('passInput').value === '0309') {
+                closeAuth();
+                document.getElementById('passInput').value = '';
+                openEdit();
             } else {
                 alert('وشەی نهێنی هەڵەیە!');
             }
-        }
+        };
 
-        function saveFirebaseData() {
-            const newRates = {
-                FIB: parseFloat(document.getElementById('editFib').value),
-                FastPay: parseFloat(document.getElementById('editFastPay').value),
-                ZainCash: parseFloat(document.getElementById('editZain').value)
-            };
-            
-            db.ref('rates').set(newRates).then(() => {
-                alert('نرخەکان بۆ هەموو بەکارهێنەران بە سەرکەوتوویی گوڕدران!');
-                closeAdmin();
+        window.openEdit = () => {
+            document.getElementById('in-fib-buy').value = dbData.fib_buy || 153000;
+            document.getElementById('in-fib-sell').value = dbData.fib_sell || 153500;
+            document.getElementById('in-fp-buy').value = dbData.fp_buy || 153000;
+            document.getElementById('in-fp-sell').value = dbData.fp_sell || 153500;
+            document.getElementById('in-zc-buy').value = dbData.zc_buy || 153000;
+            document.getElementById('in-zc-sell').value = dbData.zc_sell || 153500;
+            document.getElementById('editModal').style.display = 'flex';
+        };
+
+        window.closeEdit = () => document.getElementById('editModal').style.display = 'none';
+
+        window.saveData = () => {
+            set(ratesRef, {
+                fib_buy: document.getElementById('in-fib-buy').value,
+                fib_sell: document.getElementById('in-fib-sell').value,
+                fp_buy: document.getElementById('in-fp-buy').value,
+                fp_sell: document.getElementById('in-fp-sell').value,
+                zc_buy: document.getElementById('in-zc-buy').value,
+                zc_sell: document.getElementById('in-zc-sell').value
+            }).then(() => {
+                closeEdit();
+            }).catch((err) => {
+                alert("کێشەیەک ڕوویدا: " + err.message);
             });
-        }
-
-        function uploadLogo(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    document.getElementById('logoContainer').innerHTML = `<img src="${event.target.result}">`;
-                    localStorage.setItem('userLogo', event.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        const savedLogo = localStorage.getItem('userLogo');
-        if (savedLogo) {
-            document.getElementById('logoContainer').innerHTML = `<img src="${savedLogo}">`;
-        }
-
-        calculate();
+        };
     </script>
 </body>
 </html>

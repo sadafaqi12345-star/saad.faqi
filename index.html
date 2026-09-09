@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SAAD FAQI - Luxury Currency Exchange</title>
+    <title>EVAN ADMIN - Luxury Currency Exchange</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -273,24 +273,18 @@
         footer {
             margin-top: 24px;
             text-align: center;
-            padding: 16px;
+            padding: 18px 14px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-        }
-
-        .dev-title {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         .dev-name {
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 800;
             color: #fff;
             background: linear-gradient(90deg, #fff, var(--neon-blue));
@@ -298,29 +292,33 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .dev-region {
-            font-size: 0.72rem;
+        .dev-desc {
+            font-size: 0.75rem;
             color: var(--neon-purple);
             font-weight: 700;
-            margin-top: 2px;
-            letter-spacing: 0.5px;
+            line-height: 1.4;
+            padding: 0 5px;
         }
 
         .dev-phone {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-            margin-top: 8px;
-            padding: 5px 12px;
+            margin-top: 6px;
+            padding: 6px 14px;
             background: rgba(56, 189, 248, 0.08);
             border: 1px solid rgba(56, 189, 248, 0.2);
             border-radius: 16px;
             color: var(--neon-blue);
             text-decoration: none;
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 700;
             direction: ltr;
             transition: all 0.3s ease;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .dev-phone:hover {
@@ -398,7 +396,7 @@
     <div class="container">
         <header>
             <div class="brand">
-                <h1><i class="fa-solid fa-chart-pie"></i> SAAD FAQI</h1>
+                <h1><i class="fa-solid fa-chart-pie"></i> evan admin</h1>
                 <p>نرخی ڕاستەوخۆ / Live Rates</p>
             </div>
             <button class="admin-badge" onclick="openAuth()"><i class="fa-solid fa-gear"></i> Admin</button>
@@ -472,16 +470,15 @@
 
         <!-- Luxury Footer -->
         <footer>
-            <div class="dev-title">دروستکراوە لەلایەن / Developed by</div>
-            <div class="dev-name">saad shkur faqi</div>
-            <div class="dev-region">Kurdistan</div>
-            <a href="tel:07503931747" class="dev-phone">
-                <i class="fa-solid fa-phone"></i> +964 750 393 1747
+            <div class="dev-name">evan abdulwahab admin</div>
+            <div class="dev-desc">بۆ ئادمینی کردن لە هەر وڵاتێک بتەوێت و کۆین فرۆشتن - ناوی فیسبووک: evain abdulwahab</div>
+            <a href="tel:07702200302" class="dev-phone">
+                <i class="fa-solid fa-phone"></i> +964 770 220 0302
             </a>
         </footer>
     </div>
 
-    <!-- Auth Modal (پاک و بەبێ نیشاندانی پاسۆرد لە خانەکەدا) -->
+    <!-- Auth Modal -->
     <div class="modal" id="authModal">
         <div class="modal-body">
             <h2>چوونەژوورەوە / Admin Login</h2>
